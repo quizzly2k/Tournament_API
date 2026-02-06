@@ -1,0 +1,43 @@
+## Logs
+logs/
+*.log
+
+## Visual Studio
+.vs/
+.vscode/
+
+## Build results
+bin/
+obj/
+Debug/
+Release/
+
+## NuGet
+*.nuget.props
+*.nuget.targets
+packages/
+
+## Entity Framework
+/Data/Migrations/
+
+## OS
+.DS_Store
+Thumbs.db
+
+## IDE
+.idea/
+*.swp
+*.swo
+*~
+
+## VS Code
+.vscode/
+*.code-workspace
+
+## User-specific files
+appsettings.Development.json
+
+## Database files
+*.mdf
+*.ldf
+*.db
