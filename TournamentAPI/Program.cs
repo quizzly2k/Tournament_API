@@ -44,6 +44,14 @@ catch (Exception ex)
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+
+    // Exposes Swagger UI: /swagger
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/openapi/v1.json", "TournamentAPI");
+        options.RoutePrefix = "swagger";
+    });
+
 }
 
 app.UseHttpsRedirection();
@@ -51,5 +59,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapOpenApi();
 
 app.Run();

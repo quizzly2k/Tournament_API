@@ -18,9 +18,29 @@ public class TournamentCreateDTO
     [CustomValidation(typeof(TournamentCreateDTO), nameof(ValidateDate))]
     public DateTime Date { get; set; }
 
-    public static ValidationResult? ValidateDate(DateTime date, ValidationContext context)
+    public static ValidationResult? ValidateDate(object? value, ValidationContext context)
     {
-        if (date <= DateTime.Now)
+        if (value == null)
+        {
+            return new ValidationResult("Date is required");
+        }
+
+        DateTime date;
+        if (value is DateTime dt)
+        {
+            date = dt;
+        }
+        else if (value is DateTimeOffset dto)
+        {
+            date = dto.UtcDateTime;
+        }
+        else if (!DateTime.TryParse(value.ToString(), out date))
+        {
+            return new ValidationResult("Invalid date format");
+        }
+
+        // Compare in UTC to avoid timezone-related false negatives
+        if (date.ToUniversalTime() <= DateTime.UtcNow)
         {
             return new ValidationResult("Date cannot be in the past");
         }
